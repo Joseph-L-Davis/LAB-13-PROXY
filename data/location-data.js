@@ -1,4 +1,4 @@
-const location = [
+export default [
   {
     'place_id': '282983253',
     'licence': 'https://locationiq.com/attribution',
@@ -38,5 +38,3 @@ const location = [
     'icon': 'https://locationiq.org/static/images/mapicons/poi_place_city.p.20.png'
   }
 ];
-
-export default location;
