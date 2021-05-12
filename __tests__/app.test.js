@@ -1,35 +1,33 @@
-import app from '../lib/app.js';
-import supertest from 'supertest';
+import { locationData } from '../data/location-data.js';
+import { formatLocation } from '../lib/utils.js';
 
-const request = supertest(app);
 
 describe('API Routes', () => {
 
-  const expectedCats = [
-    
-  ];
+  const expectedLocations = 
+    [
+      {
+        'city': 'Portland, Multnomah County, Oregon, USA',
+        'latitude': '45.5202471',
+        'longitude': '-122.6741949',
+        'icon': 'https://locationiq.org/static/images/mapicons/poi_place_city.p.20.png'
+      },
+      {
+        'city': 'Portland, Cumberland County, Maine, USA',
+        'latitude': '43.6610277',
+        'longitude': '-70.2548596',
+        'icon': 'https://locationiq.org/static/images/mapicons/poi_place_city.p.20.png'
+      }
+    ];
 
   // If a GET request is made to /api/cats, does:
   // 1) the server respond with status of 200
   // 2) the body match the expected API data?
-  it('GET /api/cats', async () => {
+  it('Munge location', async () => {
     // act - make the request
-    const response = await request.get('/api/cats');
+    const output = formatLocation(locationData);
 
-    // was response OK (200)?
-    expect(response.status).toBe(200);
-
-    // did it return the data we expected?
-    expect(response.body).toEqual(expectedCats);
-
+    expect(output).toEqual(expectedLocations);
   });
 
-  // If a GET request is made to /api/cats/:id, does:
-  // 1) the server respond with status of 200
-  // 2) the body match the expected API data for the cat with that id?
-  test('GET /api/cats/:id', async () => {
-    const response = await request.get('/api/cats/2');
-    expect(response.status).toBe(200);
-    expect(response.body).toEqual(expectedCats[1]);
-  });
 });

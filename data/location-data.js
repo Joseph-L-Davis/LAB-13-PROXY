@@ -1,4 +1,4 @@
-export default [
+export const locationData = [
   {
     'place_id': '282983253',
     'licence': 'https://locationiq.com/attribution',
