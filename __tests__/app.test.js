@@ -1,8 +1,9 @@
 import { locationData } from '../data/location-data.js';
-import { formatLocation } from '../lib/utils.js';
+import { weatherData } from '../data/weather-data.js';
+import { formatLocation, formatWeather } from '../lib/utils.js';
 
 
-describe('API Routes', () => {
+describe('location Routes', () => {
 
   const expectedLocations = 
     [
@@ -28,6 +29,36 @@ describe('API Routes', () => {
     const output = formatLocation(locationData);
 
     expect(output).toEqual(expectedLocations);
+  });
+
+});
+
+describe('weather Routes', () => {
+
+  const expectedWeather = 
+    [
+      {
+        'time': '2021-05-12',
+        'forecast': {
+          'description': 'Broken clouds'
+        },
+      },
+      {
+        'valid_date': '2021-05-13',
+        'weather': {
+          'description': 'Few clouds'
+        },
+      }
+    ];
+
+  // If a GET request is made to /api/cats, does:
+  // 1) the server respond with status of 200
+  // 2) the body match the expected API data?
+  it('Munge weather', async () => {
+    // act - make the request
+    const output = formatWeather(weatherData);
+
+    expect(output).toEqual(expectedWeather);
   });
 
 });
