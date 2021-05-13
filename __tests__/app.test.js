@@ -11,13 +11,11 @@ describe('location Routes', () => {
         'city': 'Portland, Multnomah County, Oregon, USA',
         'latitude': '45.5202471',
         'longitude': '-122.6741949',
-        'icon': 'https://locationiq.org/static/images/mapicons/poi_place_city.p.20.png'
       },
       {
         'city': 'Portland, Cumberland County, Maine, USA',
         'latitude': '43.6610277',
         'longitude': '-70.2548596',
-        'icon': 'https://locationiq.org/static/images/mapicons/poi_place_city.p.20.png'
       }
     ];
 
@@ -39,15 +37,11 @@ describe('weather Routes', () => {
     [
       {
         'time': '2021-05-12',
-        'forecast': {
-          'description': 'Broken clouds'
-        },
+        'forecast': 'Broken clouds'
       },
       {
-        'valid_date': '2021-05-13',
-        'weather': {
-          'description': 'Few clouds'
-        },
+        'time': '2021-05-13',
+        'forecast': 'Few clouds'
       }
     ];
 
