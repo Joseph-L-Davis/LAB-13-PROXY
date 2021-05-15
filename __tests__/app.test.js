@@ -59,14 +59,14 @@ describe('Yelp Routes', () => {
     [
       {
         'name': 'Timberwood Grill',
-        'image': 'https://s3-media4.fl.yelpcdn.com/bphoto/tYLDE6HRJuNmb5FGOrjSuA/o.jpg',
+        'image_url': 'https://s3-media4.fl.yelpcdn.com/bphoto/tYLDE6HRJuNmb5FGOrjSuA/o.jpg',
         'price': '$$',
         'rating': 4,
         'url': 'https://www.yelp.com/biz/timberwood-grill-charlottesville?adjust_creative=k9RolU7Bt9LyKvMZ0hzjLw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=k9RolU7Bt9LyKvMZ0hzjLw'
       },
       {
         'name': 'Martin\'s Grill',
-        'image': 'https://s3-media2.fl.yelpcdn.com/bphoto/jqkM52dRUPzDmVMU8rGjzg/o.jpg',
+        'image_url': 'https://s3-media2.fl.yelpcdn.com/bphoto/jqkM52dRUPzDmVMU8rGjzg/o.jpg',
         'price': '$',
         'rating': 4,
         'url': 'https://www.yelp.com/biz/martins-grill-charlottesville?adjust_creative=k9RolU7Bt9LyKvMZ0hzjLw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=k9RolU7Bt9LyKvMZ0hzjLw'
@@ -83,4 +83,4 @@ describe('Yelp Routes', () => {
     expect(output).toEqual(expectedYelp);
   });
 
-});
+}); 
