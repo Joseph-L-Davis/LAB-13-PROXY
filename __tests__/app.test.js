@@ -1,116 +1,86 @@
-import app from '../lib/app.js';
-import supertest from 'supertest';
-import client from '../lib/client.js';
-import { execSync } from 'child_process';
+import { locationData } from '../data/location-data.js';
+import { weatherData } from '../data/weather-data.js';
+import { yelpData } from '../data/yelp-data.js';
+import { formatLocation, formatWeather, formatYelp } from '../lib/utils.js';
 
-const request = supertest(app);
 
-describe('API Routes', () => {
+describe('location Routes', () => {
 
-  beforeAll(() => {
-    execSync('npm run setup-db');
-  });
-
-  afterAll(async () => {
-    return client.end();
-  });
-
-  const expectedCats = [
-    {
-      id: expect.any(Number),
-      name: 'Felix',
-      type: 'Tuxedo',
-      url: 'cats/felix.png',
-      year: 1892,
-      lives: 3,
-      isSidekick: false
-    },
-    {
-      id: expect.any(Number),
-      name: 'Garfield',
-      type: 'Orange Tabby',
-      url: 'cats/garfield.jpeg',
-      year: 1978,
-      lives: 7,
-      isSidekick: false
-    },
-    {
-      id: expect.any(Number),
-      name: 'Duchess',
-      type: 'Angora',
-      url: 'cats/duchess.jpeg',
-      year: 1970,
-      lives: 9,
-      isSidekick: false
-    },
-    {
-      id: expect.any(Number),
-      name: 'Stimpy',
-      type: 'Manx',
-      url: 'cats/stimpy.jpeg',
-      year: 1990,
-      lives: 1,
-      isSidekick: true
-    },
-    {
-      id: expect.any(Number),
-      name: 'Sylvester',
-      type: 'Tuxedo',
-      url: 'cats/sylvester.jpeg',
-      year: 1945,
-      lives: 1,
-      isSidekick: true
-    },
-    {
-      id: expect.any(Number),
-      name: 'Tigger',
-      type: 'Orange Tabby',
-      url: 'cats/tigger.jpeg',
-      year: 1928,
-      lives: 8,
-      isSidekick: false
-    },
-    {
-      id: expect.any(Number),
-      name: 'Hello Kitty',
-      type: 'Angora',
-      url: 'cats/hello-kitty.jpeg',
-      year: 1974,
-      lives: 9,
-      isSidekick: false
-    },
-    {
-      id: expect.any(Number),
-      name: 'Hobbs',
-      type: 'Orange Tabby',
-      url: 'cats/hobbs.jpeg',
-      year: 1985,
-      lives: 6,
-      isSidekick: true
-    }
-  ];
+  const expectedLocations = 
+    
+      {
+        'formatted_query': 'Portland, Multnomah County, Oregon, USA',
+        'latitude': '45.5202471',
+        'longitude': '-122.6741949',
+      }
+    ;
 
   // If a GET request is made to /api/cats, does:
   // 1) the server respond with status of 200
   // 2) the body match the expected API data?
-  it('GET /api/cats', async () => {
+  it('Munge location', async () => {
     // act - make the request
-    const response = await request.get('/api/cats');
+    const output = formatLocation(locationData);
 
-    // was response OK (200)?
-    expect(response.status).toBe(200);
-
-    // did it return the data we expected?
-    expect(response.body).toEqual(expectedCats);
-
+    expect(output).toEqual(expectedLocations);
   });
 
-  // If a GET request is made to /api/cats/:id, does:
+}); 
+
+describe('weather Routes', () => {
+
+  const expectedWeather = 
+    [
+      {
+        'time': '2021-05-12',
+        'forecast': 'Broken clouds'
+      },
+      {
+        'time': '2021-05-13',
+        'forecast': 'Few clouds'
+      }
+    ];
+
+  // If a GET request is made to /api/cats, does:
   // 1) the server respond with status of 200
-  // 2) the body match the expected API data for the cat with that id?
-  test('GET /api/cats/:id', async () => {
-    const response = await request.get('/api/cats/2');
-    expect(response.status).toBe(200);
-    expect(response.body).toEqual(expectedCats[1]);
+  // 2) the body match the expected API data?
+  it('Munge weather', async () => { 
+    // act - make the request
+    const output = formatWeather(weatherData);
+
+    expect(output).toEqual(expectedWeather);
   });
+
 });
+
+describe('Yelp Routes', () => {
+
+  const expectedYelp = 
+    [
+      {
+        'name': 'Timberwood Grill',
+        'image_url': 'https://s3-media4.fl.yelpcdn.com/bphoto/tYLDE6HRJuNmb5FGOrjSuA/o.jpg',
+        'price': '$$',
+        'rating': 4,
+        'url': 'https://www.yelp.com/biz/timberwood-grill-charlottesville?adjust_creative=k9RolU7Bt9LyKvMZ0hzjLw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=k9RolU7Bt9LyKvMZ0hzjLw'
+      },
+      {
+        'name': 'Martin\'s Grill',
+        'image_url': 'https://s3-media2.fl.yelpcdn.com/bphoto/jqkM52dRUPzDmVMU8rGjzg/o.jpg',
+        'price': '$',
+        'rating': 4,
+        'url': 'https://www.yelp.com/biz/martins-grill-charlottesville?adjust_creative=k9RolU7Bt9LyKvMZ0hzjLw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=k9RolU7Bt9LyKvMZ0hzjLw'
+      }
+    ];
+
+  // If a GET request is made to /api/cats, does:
+  // 1) the server respond with status of 200
+  // 2) the body match the expected API data?
+  it('Munge Yelp', async () => {
+    // act - make the request
+    const output = await formatYelp(yelpData);
+
+    expect(output).toEqual(expectedYelp);
+  });
+
+}); 
